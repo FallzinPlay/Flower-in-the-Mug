@@ -1,0 +1,392 @@
+[gd_scene load_steps=27 format=4 uid="uid://d30ij4of3owpv"]
+
+[ext_resource type="TileSet" uid="uid://bt3oy6lao7dvm" path="res://Assets/Tiles/base.tres" id="2_fvryo"]
+[ext_resource type="Texture2D" uid="uid://dw07nqo0ctcwo" path="res://Assets/Scenes/drink_making_hud/model/layers/cocktail_shaker.png" id="3_7aasw"]
+[ext_resource type="PackedScene" uid="uid://g1f66xg6tl2j" path="res://Scenes/Characters/traveller.tscn" id="3_dx8l8"]
+[ext_resource type="Texture2D" uid="uid://b48dxhpnjr7b4" path="res://Assets/Scenes/drink_making_hud/model/layers/slot.png" id="4_p4nao"]
+[ext_resource type="Texture2D" uid="uid://0xr55popc3hx" path="res://Assets/Scenes/drink_making_hud/model/layers/Minigame_bar/bar.png" id="5_8yjdi"]
+[ext_resource type="Script" path="res://Scripts/Drink_making_system/Minigame_bar/minigame_bar.gd" id="5_sqhkl"]
+[ext_resource type="Texture2D" uid="uid://blicu8hvd172e" path="res://Assets/Scenes/drink_making_hud/model/layers/Minigame_bar/good_area.png" id="6_y5rk5"]
+[ext_resource type="Script" path="res://Scripts/Drink_making_system/Minigame_bar/good_area.gd" id="7_chvxd"]
+[ext_resource type="Texture2D" uid="uid://o22eabwj0674" path="res://Assets/Scenes/drink_making_hud/model/layers/Minigame_bar/glass.png" id="7_pc1ef"]
+[ext_resource type="Texture2D" uid="uid://b4ywca6tg44u" path="res://Assets/Scenes/drink_making_hud/model/layers/Minigame_bar/indicator.png" id="8_wu2c2"]
+[ext_resource type="Texture2D" uid="uid://byhdqgwrj3jw8" path="res://Assets/Scenes/drink_making_hud/model/layers/Minigame_bar/decorations.png" id="9_u0rpw"]
+[ext_resource type="Texture2D" uid="uid://b5aym63ov16tl" path="res://Assets/Scenes/drink_making_hud/model/layers/Happy_bar/bar.png" id="10_2dkbe"]
+[ext_resource type="Script" path="res://Scripts/Drink_making_system/Minigame_bar/indicator.gd" id="10_h643w"]
+[ext_resource type="Texture2D" uid="uid://ejdim50qo5ec" path="res://Assets/Scenes/drink_making_hud/model/layers/Happy_bar/liquid.png" id="11_vxslw"]
+[ext_resource type="Texture2D" uid="uid://b22dsrd0p84pw" path="res://Assets/Scenes/drink_making_hud/model/layers/Happy_bar/glass.png" id="12_anves"]
+[ext_resource type="Texture2D" uid="uid://dhrdtxn0sngim" path="res://Assets/Scenes/drink_making_hud/model/layers/Happy_bar/quality.png" id="13_3fvjg"]
+[ext_resource type="Script" path="res://Scripts/Drink_making_system/Quality_bar/quality_bar.gd" id="13_qm2jg"]
+[ext_resource type="Texture2D" uid="uid://cubra2d03ekqa" path="res://Assets/Scenes/drink_making_hud/model/layers/Happy_bar/happy.png" id="14_10kdw"]
+[ext_resource type="Script" path="res://Scripts/Drink_making_system/Quality_bar/liquid.gd" id="15_vj4tg"]
+[ext_resource type="Texture2D" uid="uid://byt8v78oj6c0w" path="res://Assets/Scenes/drink_making_hud/model/layers/Hourglass/hourglass.png" id="18_8rc7b"]
+[ext_resource type="Script" path="res://Scripts/Drink_making_system/Hourglass/hourglass.gd" id="21_mtcxx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkuke"]
+size = Vector2(7.6, 12.2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fe3g"]
+atlas = ExtResource("3_7aasw")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1axlx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fe3g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v22tx"]
+size = Vector2(1, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uesxn"]
+size = Vector2(0.999994, 7)
+
+[node name="Base" type="Node2D" groups=["Characters"]]
+
+[node name="Map" type="Node2D" parent="."]
+position = Vector2(32, 45)
+
+[node name="Tiles" type="Node2D" parent="Map"]
+scale = Vector2(3, 3)
+
+[node name="Floor" type="TileMapLayer" parent="Map/Tiles"]
+tile_map_data = PackedByteArray("AAAGAAQAAAAHAAQAAAAGAAUAAAAHAAQAAAAGAAYAAAAHAAQAAAAGAAcAAAAHAAQAAAAGAAgAAAAHAAQAAAAGAAkAAAAHAAQAAAAGAAoAAAAHAAQAAAAHAAQAAAAGAAQAAAAHAAUAAAAHAAQAAAAHAAYAAAAHAAQAAAAHAAcAAAAGAAQAAAAHAAgAAAAHAAQAAAAHAAkAAAAHAAQAAAAHAAoAAAAHAAQAAAAIAAQAAAAHAAQAAAAIAAUAAAAHAAQAAAAIAAYAAAAHAAQAAAAIAAcAAAAHAAQAAAAIAAgAAAAHAAQAAAAIAAkAAAAHAAQAAAAIAAoAAAAHAAQAAAAJAAQAAAAHAAQAAAAJAAUAAAAHAAQAAAAJAAYAAAAHAAQAAAAJAAcAAAAHAAQAAAAJAAgAAAAHAAQAAAAJAAkAAAAHAAQAAAAJAAoAAAAHAAQAAAAKAAQAAAAHAAQAAAAKAAUAAAAHAAQAAAAKAAYAAAAHAAQAAAAKAAcAAAAHAAQAAAAKAAgAAAAGAAQAAAAKAAkAAAAHAAQAAAAKAAoAAAAHAAQAAAALAAQAAAAHAAQAAAALAAUAAAAHAAQAAAALAAYAAAAHAAQAAAALAAcAAAAHAAQAAAALAAgAAAAHAAQAAAALAAkAAAAHAAQAAAALAAoAAAAHAAQAAAAMAAQAAAAHAAQAAAAMAAUAAAAHAAQAAAAMAAYAAAAHAAQAAAAMAAcAAAAHAAQAAAAMAAgAAAAHAAQAAAAMAAkAAAAHAAQAAAAMAAoAAAAHAAQAAAANAAQAAAAHAAQAAAANAAUAAAAGAAQAAAANAAYAAAAHAAQAAAANAAcAAAAHAAQAAAANAAgAAAAHAAQAAAANAAkAAAAHAAQAAAANAAoAAAAHAAQAAAAOAAQAAAAHAAQAAAAOAAUAAAAHAAQAAAAOAAYAAAAHAAQAAAAOAAcAAAAHAAQAAAAOAAgAAAAHAAQAAAAOAAkAAAAHAAQAAAAOAAoAAAAHAAQAAAAGAAMAAAAHAAQAAAAHAAMAAAAHAAQAAAAIAAMAAAAHAAQAAAAJAAMAAAAHAAQAAAAKAAMAAAAHAAQAAAALAAMAAAAHAAQAAAAMAAMAAAAHAAQAAAANAAMAAAAHAAQAAAAOAAMAAAAHAAQAAAAFAAIAAAAHAAQAAAAFAAMAAAAHAAQAAAAFAAQAAAAHAAQAAAAFAAUAAAAHAAQAAAAFAAYAAAAHAAQAAAAFAAcAAAAHAAQAAAAFAAgAAAAHAAQAAAAFAAkAAAAHAAQAAAAFAAoAAAAHAAQAAAAFAAsAAAAHAAQAAAAGAAIAAAAHAAQAAAAGAAsAAAAHAAQAAAAHAAIAAAAHAAQAAAAHAAsAAAAHAAQAAAAIAAIAAAAHAAQAAAAIAAsAAAAHAAQAAAAJAAIAAAAHAAQAAAAJAAsAAAAHAAQAAAAKAAIAAAAHAAQAAAAKAAsAAAAHAAQAAAALAAIAAAAHAAQAAAALAAsAAAAHAAQAAAAMAAIAAAAHAAQAAAAMAAsAAAAHAAQAAAANAAIAAAAHAAQAAAANAAsAAAAHAAQAAAAOAAIAAAAHAAQAAAAOAAsAAAAHAAQAAAAPAAIAAAAHAAQAAAAPAAMAAAAHAAQAAAAPAAQAAAAHAAQAAAAPAAUAAAAHAAQAAAAPAAYAAAAHAAQAAAAPAAcAAAAHAAQAAAAPAAgAAAAHAAQAAAAPAAkAAAAHAAQAAAAPAAoAAAAHAAQAAAAPAAsAAAAHAAQAAAA=")
+tile_set = ExtResource("2_fvryo")
+
+[node name="Wall" type="TileMapLayer" parent="Map/Tiles"]
+tile_map_data = PackedByteArray("AAAFAAMAAAAIAAQAAAAGAAMAAAAIAAQAAAAHAAMAAAAIAAQAAAAIAAMAAAAIAAQAAAAJAAMAAAAIAAQAAAAKAAMAAAAIAAQAAAALAAMAAAAIAAQAAAAMAAMAAAAIAAQAAAANAAMAAAAIAAQAAAAOAAMAAAAIAAQAAAAPAAMAAAAIAAQAAAAFAAIAAAAIAAMAAAAGAAIAAAAIAAIAAAAHAAIAAAAIAAMAAAAIAAIAAAAIAAMAAAAJAAIAAAAIAAMAAAAKAAIAAAAIAAMAAAALAAIAAAAIAAIAAAAMAAIAAAAIAAMAAAANAAIAAAAIAAMAAAAOAAIAAAAIAAMAAAAPAAIAAAAIAAMAAAA=")
+tile_set = ExtResource("2_fvryo")
+
+[node name="Wall_Door" type="TileMapLayer" parent="Map/Tiles"]
+tile_map_data = PackedByteArray("AAANAAMAAAAAAAEAAAA=")
+tile_set = ExtResource("2_fvryo")
+
+[node name="Pillars" type="TileMapLayer" parent="Map/Tiles"]
+tile_map_data = PackedByteArray("AAAFAAIAAAAHAAEAAAAFAAMAAAAHAAIAAAAFAAQAAAAHAAMAAAAPAAIAAAAGAAEAAAAPAAMAAAAGAAIAAAAPAAQAAAAGAAMAAAA=")
+tile_set = ExtResource("2_fvryo")
+
+[node name="Objects" type="TileMapLayer" parent="Map/Tiles"]
+tile_map_data = PackedByteArray("AAAGAAQAAAACAAQAAAAIAAMAAAABAAQAAAAIAAQAAAABAAYAAAAJAAQAAAACAAYAAAAKAAQAAAACAAYAAAALAAQAAAACAAYAAAAMAAQAAAADAAYAAAAGAAYAAAAFAAQAAAAGAAcAAAAFAAUAAAAGAAgAAAAFAAYAAAAFAAYAAAAEAAQAAAAFAAcAAAAEAAUAAAAFAAgAAAAEAAYAAAAFAAoAAAAEAAQAAAAFAAsAAAAEAAYAAAAGAAsAAAAFAAYAAAAGAAoAAAAFAAQAAAAIAAYAAAAEAAQAAAAIAAcAAAAEAAUAAAAIAAgAAAAEAAYAAAALAAYAAAAEAAQAAAALAAcAAAAEAAUAAAALAAgAAAAEAAYAAAAJAAYAAAAFAAQAAAAJAAcAAAAFAAUAAAAJAAgAAAAFAAYAAAAMAAYAAAAFAAQAAAAMAAcAAAAFAAUAAAAMAAgAAAAFAAYAAAAJAAoAAAAHAAUAAAAJAAsAAAAHAAYAAAAPAAoAAAAHAAUAAAAPAAsAAAAHAAYAAAAOAAsAAAAGAAYAAAAIAAsAAAAGAAYAAAAKAAsAAAAGAAYAAAAPAAYAAAAFAAQAAAAPAAcAAAAFAAUAAAAPAAgAAAAFAAYAAAAOAAYAAAAEAAQAAAAOAAcAAAAEAAUAAAAOAAgAAAAEAAYAAAA=")
+tile_set = ExtResource("2_fvryo")
+
+[node name="Top" type="TileMapLayer" parent="Map/Tiles"]
+tile_map_data = PackedByteArray("AAAPAAIAAAAFAAEAAAAPAAsAAAAFAAIAAAAFAAsAAAAEAAIAAAAFAAIAAAAEAAEAAAAPAAMAAAADAAAAAAAPAAQAAAADAAAAAAAPAAUAAAADAAAAAAAPAAYAAAADAAAAAAAPAAcAAAADAAAAAAAPAAgAAAADAAAAAAAPAAkAAAADAAAAAAAPAAoAAAADAAAAAAAGAAIAAAACAAAAAAAHAAIAAAACAAAAAAAIAAIAAAACAAAAAAAJAAIAAAACAAAAAAAKAAIAAAACAAAAAAALAAIAAAACAAAAAAAMAAIAAAACAAAAAAANAAIAAAACAAAAAAAOAAIAAAACAAAAAAAFAAMAAAACAAEAAAAFAAQAAAACAAEAAAAFAAUAAAACAAEAAAAFAAYAAAACAAEAAAAFAAcAAAACAAEAAAAFAAgAAAACAAEAAAAFAAkAAAACAAEAAAAFAAoAAAACAAEAAAAGAAsAAAADAAEAAAAHAAsAAAADAAEAAAAIAAsAAAADAAEAAAAJAAsAAAADAAEAAAAKAAsAAAADAAEAAAALAAsAAAADAAEAAAAMAAsAAAADAAEAAAANAAsAAAADAAEAAAAOAAsAAAADAAEAAAA=")
+tile_set = ExtResource("2_fvryo")
+
+[node name="Top_Door" type="TileMapLayer" parent="Map/Tiles"]
+tile_map_data = PackedByteArray("AAAMAAsAAAACAAIAAAA=")
+tile_set = ExtResource("2_fvryo")
+
+[node name="Traveller" parent="Map" groups=["Characters"] instance=ExtResource("3_dx8l8")]
+position = Vector2(516, 226)
+scale = Vector2(5, 5)
+
+[node name="Area2D" type="Area2D" parent="Map/Traveller"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Traveller/Area2D"]
+position = Vector2(-0.200005, 0.5)
+shape = SubResource("RectangleShape2D_vkuke")
+
+[node name="Depth" type="Node2D" parent="Map"]
+editor_description = "Node que define a produndidade dos objetos."
+y_sort_enabled = true
+
+[node name="Hud" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Drink_hud" type="Panel" parent="Hud"]
+layout_mode = 0
+offset_right = 1083.0
+offset_bottom = 718.0
+
+[node name="scaler" type="Node2D" parent="Hud/Drink_hud"]
+scale = Vector2(3, 3)
+
+[node name="cocktail_shaker" type="AnimatedSprite2D" parent="Hud/Drink_hud/scaler"]
+position = Vector2(201.667, 92.6667)
+sprite_frames = SubResource("SpriteFrames_1axlx")
+
+[node name="Inventory" type="ScrollContainer" parent="Hud/Drink_hud/scaler"]
+offset_right = 108.0
+offset_bottom = 223.0
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="Slots" type="GridContainer" parent="Hud/Drink_hud/scaler/Inventory"]
+layout_mode = 2
+columns = 4
+
+[node name="TextureButton14" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton26" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton27" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton28" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton29" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton30" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton31" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton32" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton33" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton34" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton35" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton36" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton37" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton38" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton39" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton40" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton41" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton15" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton16" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton17" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton18" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton19" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton20" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton21" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton22" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton23" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton24" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="TextureButton25" type="TextureButton" parent="Hud/Drink_hud/scaler/Inventory/Slots"]
+layout_mode = 2
+texture_normal = ExtResource("4_p4nao")
+
+[node name="Minigame_bar" type="TextureRect" parent="Hud/Drink_hud/scaler"]
+offset_left = 40.3333
+offset_top = 175.333
+offset_right = 80.3333
+offset_bottom = 215.333
+scale = Vector2(2, 2)
+script = ExtResource("5_sqhkl")
+
+[node name="bar" type="TextureRect" parent="Hud/Drink_hud/scaler/Minigame_bar"]
+layout_mode = 0
+offset_left = 1.16665
+offset_top = 0.833506
+offset_right = 127.167
+offset_bottom = 6.83351
+texture = ExtResource("5_8yjdi")
+
+[node name="limiter_left" type="Marker2D" parent="Hud/Drink_hud/scaler/Minigame_bar/bar"]
+position = Vector2(0.5, 3)
+
+[node name="limiter_right" type="Marker2D" parent="Hud/Drink_hud/scaler/Minigame_bar/bar"]
+position = Vector2(123.5, 2.83333)
+
+[node name="good_area" type="TextureRect" parent="Hud/Drink_hud/scaler/Minigame_bar"]
+layout_mode = 0
+offset_left = 1.16665
+offset_top = 0.833506
+offset_right = 2.16665
+offset_bottom = 6.83351
+pivot_offset = Vector2(0.500002, 3)
+texture = ExtResource("6_y5rk5")
+script = ExtResource("7_chvxd")
+
+[node name="Area2D" type="Area2D" parent="Hud/Drink_hud/scaler/Minigame_bar/good_area"]
+position = Vector2(0.500003, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hud/Drink_hud/scaler/Minigame_bar/good_area/Area2D"]
+position = Vector2(-2.5481e-06, -1.2815e-06)
+shape = SubResource("RectangleShape2D_v22tx")
+
+[node name="glass" type="TextureRect" parent="Hud/Drink_hud/scaler/Minigame_bar"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 8.0
+texture = ExtResource("7_pc1ef")
+
+[node name="Indicator" type="TextureRect" parent="Hud/Drink_hud/scaler/Minigame_bar"]
+layout_mode = 0
+offset_left = 1.16665
+offset_top = -1.16649
+offset_right = 8.16665
+offset_bottom = 9.83351
+pivot_offset = Vector2(3.5, 4.49999)
+texture = ExtResource("8_wu2c2")
+script = ExtResource("10_h643w")
+
+[node name="Collisor" type="Area2D" parent="Hud/Drink_hud/scaler/Minigame_bar/Indicator"]
+position = Vector2(-21, -15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hud/Drink_hud/scaler/Minigame_bar/Indicator/Collisor"]
+position = Vector2(24.5, 19.5)
+shape = SubResource("RectangleShape2D_uesxn")
+
+[node name="Decorations" type="TextureRect" parent="Hud/Drink_hud/scaler/Minigame_bar"]
+layout_mode = 0
+offset_left = 3.16665
+offset_top = -17.3332
+offset_right = 131.167
+offset_bottom = 30.6668
+texture = ExtResource("9_u0rpw")
+
+[node name="Quality_bar" type="TextureRect" parent="Hud/Drink_hud/scaler"]
+offset_left = 319.667
+offset_top = 131.0
+offset_right = 319.667
+offset_bottom = 131.0
+scale = Vector2(2, 2)
+script = ExtResource("13_qm2jg")
+
+[node name="bar" type="TextureRect" parent="Hud/Drink_hud/scaler/Quality_bar"]
+layout_mode = 0
+offset_left = 0.166667
+offset_top = -0.166665
+offset_right = 6.16667
+offset_bottom = 45.8333
+texture = ExtResource("10_2dkbe")
+
+[node name="limiter_bottom" type="Marker2D" parent="Hud/Drink_hud/scaler/Quality_bar/bar"]
+position = Vector2(3, 46)
+
+[node name="limiter_top" type="Marker2D" parent="Hud/Drink_hud/scaler/Quality_bar/bar"]
+position = Vector2(3, 0)
+
+[node name="liquid" type="TextureRect" parent="Hud/Drink_hud/scaler/Quality_bar"]
+layout_mode = 0
+offset_left = 0.166667
+offset_top = 44.8333
+offset_right = 6.16667
+offset_bottom = 45.8333
+rotation = 3.14159
+pivot_offset = Vector2(2.95978, 0.495872)
+texture = ExtResource("11_vxslw")
+script = ExtResource("15_vj4tg")
+
+[node name="Timer" type="Timer" parent="Hud/Drink_hud/scaler/Quality_bar/liquid"]
+
+[node name="glass" type="TextureRect" parent="Hud/Drink_hud/scaler/Quality_bar"]
+layout_mode = 0
+offset_left = -1.00016
+offset_top = -1.33317
+offset_right = 6.99984
+offset_bottom = 46.6668
+texture = ExtResource("12_anves")
+
+[node name="quality" type="TextureRect" parent="Hud/Drink_hud/scaler/Quality_bar"]
+layout_mode = 0
+offset_left = -4.50016
+offset_top = 5.8335
+offset_right = 9.49984
+offset_bottom = 44.8335
+texture = ExtResource("13_3fvjg")
+
+[node name="happy" type="TextureRect" parent="Hud/Drink_hud/scaler/Quality_bar"]
+layout_mode = 0
+offset_left = -2.66683
+offset_top = -12.3332
+offset_right = 9.33317
+offset_bottom = -1.33317
+texture = ExtResource("14_10kdw")
+
+[node name="Hourglass" type="TextureRect" parent="Hud/Drink_hud/scaler"]
+offset_left = 310.667
+offset_top = 6.0
+offset_right = 326.667
+offset_bottom = 30.0
+scale = Vector2(2, 2)
+texture = ExtResource("18_8rc7b")
+script = ExtResource("21_mtcxx")
+
+[node name="Timer" type="Timer" parent="Hud/Drink_hud/scaler/Hourglass"]
+one_shot = true
+
+[node name="Text" type="Label" parent="Hud/Drink_hud/scaler/Hourglass"]
+layout_mode = 0
+offset_left = -3.3335
+offset_top = 21.8333
+offset_right = 19.6665
+offset_bottom = 44.8333
+text = "1,1"
+
+[connection signal="input_event" from="Map/Traveller/Area2D" to="Map/Traveller" method="_on_area_2d_input_event"]
+[connection signal="area_entered" from="Hud/Drink_hud/scaler/Minigame_bar/Indicator/Collisor" to="Hud/Drink_hud/scaler/Minigame_bar/Indicator" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Hud/Drink_hud/scaler/Minigame_bar/Indicator/Collisor" to="Hud/Drink_hud/scaler/Minigame_bar/Indicator" method="_on_area_2d_area_exited"]
+[connection signal="timeout" from="Hud/Drink_hud/scaler/Quality_bar/liquid/Timer" to="Hud/Drink_hud/scaler/Quality_bar/liquid" method="_on_timer_timeout"]

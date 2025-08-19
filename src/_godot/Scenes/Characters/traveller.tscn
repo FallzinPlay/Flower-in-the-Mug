@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://g1f66xg6tl2j"]
+
+[ext_resource type="Texture2D" uid="uid://dqwfgdjm2o7r5" path="res://Assets/characters/bob-player/idle-Sheet.png" id="1_q2ooc"]
+[ext_resource type="Script" path="res://Scripts/characters/traveller.gd" id="2_upi31"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wg3x1"]
+size = Vector2(4, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wm5yy"]
+atlas = ExtResource("1_q2ooc")
+region = Rect2(0, 0, 8, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhjl0"]
+atlas = ExtResource("1_q2ooc")
+region = Rect2(8, 0, 8, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ttii5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wm5yy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhjl0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Traveller" type="CharacterBody2D"]
+script = ExtResource("2_upi31")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_wg3x1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(0.233925, 0.233925, 0.233925, 1)
+sprite_frames = SubResource("SpriteFrames_ttii5")
+animation = &"idle"

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dseu0osar8afs"]
+
+[ext_resource type="Texture2D" uid="uid://u86l5b1gomu6" path="res://Assets/Scenes/old_mammoth_tavern/tileset.png" id="1_iq8bp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foo8v"]
+size = Vector2(20, 19)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" type="Polygon2D" parent="."]
+position = Vector2(0.112368, -4.53483)
+offset = Vector2(-48, -81)
+texture = ExtResource("1_iq8bp")
+polygon = PackedVector2Array(37.3355, 95.6652, 60.5717, 96.0241, 61.6483, 62.2912, 34.5543, 62.2015)
+uv = PackedVector2Array(37.3355, 95.6652, 60.5717, 96.0241, 61.6483, 62.2912, 34.5543, 62.2015)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.112368, -0.034853)
+shape = SubResource("RectangleShape2D_foo8v")

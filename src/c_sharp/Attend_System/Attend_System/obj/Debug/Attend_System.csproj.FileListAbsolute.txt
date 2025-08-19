@@ -1,0 +1,7 @@
+C:\Users\vitor\Documents\_creation\Games\flower_in_the_mug\src\c_sharp\Attend_System\Attend_System\obj\Debug\Attend_System.csproj.AssemblyReference.cache
+C:\Users\vitor\Documents\_creation\Games\flower_in_the_mug\src\c_sharp\Attend_System\Attend_System\obj\Debug\Attend_System.csproj.CoreCompileInputs.cache
+C:\Users\vitor\Documents\_creation\Games\flower_in_the_mug\src\c_sharp\Attend_System\Attend_System\bin\Debug\Attend_System.exe.config
+C:\Users\vitor\Documents\_creation\Games\flower_in_the_mug\src\c_sharp\Attend_System\Attend_System\bin\Debug\Attend_System.exe
+C:\Users\vitor\Documents\_creation\Games\flower_in_the_mug\src\c_sharp\Attend_System\Attend_System\bin\Debug\Attend_System.pdb
+C:\Users\vitor\Documents\_creation\Games\flower_in_the_mug\src\c_sharp\Attend_System\Attend_System\obj\Debug\Attend_System.exe
+C:\Users\vitor\Documents\_creation\Games\flower_in_the_mug\src\c_sharp\Attend_System\Attend_System\obj\Debug\Attend_System.pdb
