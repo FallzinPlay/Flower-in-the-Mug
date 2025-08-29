@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://bh8opeycxyic3"]
 
-[ext_resource type="Texture2D" uid="uid://dqwfgdjm2o7r5" path="res://Assets/characters/bob-player/idle-Sheet.png" id="1_gnaht"]
+[ext_resource type="Texture2D" uid="uid://dqwfgdjm2o7r5" path="res://Assets/characters/bob-player/02/idle-Sheet.png" id="1_gnaht"]
 [ext_resource type="Script" path="res://Scripts/characters/player.gd" id="1_jrua3"]
-[ext_resource type="Texture2D" uid="uid://c2h2ci3j1lwl3" path="res://Assets/characters/bob-player/run-Sheet.png" id="2_vmcn4"]
+[ext_resource type="Texture2D" uid="uid://c2h2ci3j1lwl3" path="res://Assets/characters/bob-player/02/run-Sheet.png" id="2_vmcn4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ea7m"]
 size = Vector2(4, 3)

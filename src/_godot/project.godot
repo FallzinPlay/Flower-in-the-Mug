@@ -24,6 +24,10 @@ window/size/viewport_height=720
 
 project/assembly_name="Flower in the Mug"
 
+[global_group]
+
+Systems="Todos os sistemas que precisam ser acessados globalmente."
+
 [input]
 
 W={

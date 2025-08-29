@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://g1f66xg6tl2j"]
+[gd_scene load_steps=9 format=3 uid="uid://g1f66xg6tl2j"]
 
-[ext_resource type="Texture2D" uid="uid://dqwfgdjm2o7r5" path="res://Assets/characters/bob-player/idle-Sheet.png" id="1_q2ooc"]
-[ext_resource type="Script" path="res://Scripts/characters/traveller.gd" id="2_upi31"]
+[ext_resource type="Texture2D" uid="uid://dqwfgdjm2o7r5" path="res://Assets/characters/bob-player/02/idle-Sheet.png" id="1_q2ooc"]
+[ext_resource type="Script" path="res://Scripts/characters/Traveller/traveller.gd" id="2_upi31"]
+[ext_resource type="Script" path="res://Scripts/characters/Traveller/click_area.gd" id="3_v27h8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wg3x1"]
 size = Vector2(4, 2)
@@ -28,14 +29,34 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fa0xf"]
+size = Vector2(8, 13)
+
 [node name="Traveller" type="CharacterBody2D"]
 script = ExtResource("2_upi31")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+[node name="CollisionArea" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wg3x1")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Anim" type="AnimatedSprite2D" parent="."]
 modulate = Color(0.233925, 0.233925, 0.233925, 1)
+position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_ttii5")
 animation = &"idle"
+
+[node name="Navigator" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+
+[node name="ClickArea" type="Area2D" parent="."]
+position = Vector2(0, -5)
+script = ExtResource("3_v27h8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_fa0xf")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="input_event" from="ClickArea" to="." method="_on_area_2d_input_event"]
+[connection signal="input_event" from="ClickArea" to="ClickArea" method="_on_input_event"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

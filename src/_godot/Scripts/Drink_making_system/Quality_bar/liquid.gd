@@ -3,6 +3,8 @@ extends TextureRect
 @onready var timer:= $Timer
 var quality_bar: TextureRect = null
 
+var stopped: bool = true
+
 func _ready() -> void:
 	timer.start(1)
 	quality_bar = get_parent()
@@ -24,4 +26,6 @@ func go_down() -> void:
 
 # A cada alarme desce pixels
 func _on_timer_timeout() -> void:
+	if stopped:
+		return
 	go_down()

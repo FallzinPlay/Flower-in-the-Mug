@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2h2ci3j1lwl3"
-path="res://.godot/imported/run-Sheet.png-f336c5c3f197176f77ea8fc539e31086.ctex"
+uid="uid://2e4eeephua66"
+path="res://.godot/imported/BAr.png-ee75f05279ad04ff5b74fdbe5a785020.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/characters/bob-player/run-Sheet.png"
-dest_files=["res://.godot/imported/run-Sheet.png-f336c5c3f197176f77ea8fc539e31086.ctex"]
+source_file="res://Assets/Scenes/old_mammoth_tavern/Objects/BAr.png"
+dest_files=["res://.godot/imported/BAr.png-ee75f05279ad04ff5b74fdbe5a785020.ctex"]
 
 [params]
 

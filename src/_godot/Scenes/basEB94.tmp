@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://d30ij4of3owpv"]
+[gd_scene load_steps=36 format=4 uid="uid://d30ij4of3owpv"]
 
 [ext_resource type="TileSet" uid="uid://bt3oy6lao7dvm" path="res://Assets/Tiles/base.tres" id="2_fvryo"]
 [ext_resource type="Script" path="res://Scripts/Sensors/get_in_tavern.gd" id="3_5ombd"]
@@ -6,9 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Drink_making_system/drink_hud.gd" id="3_ej8x7"]
 [ext_resource type="Texture2D" uid="uid://b48dxhpnjr7b4" path="res://Assets/Scenes/drink_making_hud/model/layers/slot.png" id="4_p4nao"]
 [ext_resource type="Texture2D" uid="uid://b2rfnyhn03jov" path="res://Assets/Scenes/old_mammoth_tavern/Objects/Table.png" id="4_rqch6"]
-[ext_resource type="Texture2D" uid="uid://crcyqbqwdv3pd" path="res://Assets/Scenes/old_mammoth_tavern/Objects/Door.png" id="5_0v3hr"]
 [ext_resource type="Texture2D" uid="uid://0xr55popc3hx" path="res://Assets/Scenes/drink_making_hud/model/layers/Minigame_bar/bar.png" id="5_8yjdi"]
-[ext_resource type="Script" path="res://Scripts/Old_Mammoth_Tavern/Objects/ExitDoor/exit_door.gd" id="5_14yti"]
 [ext_resource type="Texture2D" uid="uid://2e4eeephua66" path="res://Assets/Scenes/old_mammoth_tavern/Objects/BAr.png" id="5_dmja5"]
 [ext_resource type="Script" path="res://Scripts/Managers/spawn.gd" id="5_f75jq"]
 [ext_resource type="Script" path="res://Scripts/Drink_making_system/Minigame_bar/minigame_bar.gd" id="5_sqhkl"]
@@ -40,12 +38,6 @@ size = Vector2(8, 29.6667)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76dn6"]
 size = Vector2(16.3333, 38.3333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyn2x"]
-size = Vector2(32, 4.66667)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_emt0t"]
-size = Vector2(32, 8.33334)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_sk8se"]
 vertices = PackedVector2Array(744.133, 200.977, 748.859, 555.961, 258.969, 554.031, 258.023, 200.008)
@@ -102,6 +94,10 @@ tile_set = ExtResource("2_fvryo")
 tile_map_data = PackedByteArray("AAAPAAIAAAAFAAEAAAAPAAsAAAAFAAIAAAAFAAsAAAAEAAIAAAAFAAIAAAAEAAEAAAAPAAMAAAADAAAAAAAPAAQAAAADAAAAAAAPAAUAAAADAAAAAAAPAAYAAAADAAAAAAAPAAcAAAADAAAAAAAPAAgAAAADAAAAAAAPAAkAAAADAAAAAAAPAAoAAAADAAAAAAAGAAIAAAACAAAAAAAHAAIAAAACAAAAAAAIAAIAAAACAAAAAAAJAAIAAAACAAAAAAAKAAIAAAACAAAAAAALAAIAAAACAAAAAAAMAAIAAAACAAAAAAANAAIAAAACAAAAAAAOAAIAAAACAAAAAAAFAAMAAAACAAEAAAAFAAQAAAACAAEAAAAFAAUAAAACAAEAAAAFAAYAAAACAAEAAAAFAAcAAAACAAEAAAAFAAgAAAACAAEAAAAFAAkAAAACAAEAAAAFAAoAAAACAAEAAAAGAAsAAAADAAEAAAAHAAsAAAADAAEAAAAIAAsAAAADAAEAAAAJAAsAAAADAAEAAAAKAAsAAAADAAEAAAALAAsAAAADAAEAAAAMAAsAAAADAAEAAAANAAsAAAADAAEAAAAOAAsAAAADAAEAAAA=")
 tile_set = ExtResource("2_fvryo")
 
+[node name="Top_Door" type="TileMapLayer" parent="Map/Tiles"]
+tile_map_data = PackedByteArray("AAAMAAsAAAACAAIAAAA=")
+tile_set = ExtResource("2_fvryo")
+
 [node name="Sensors" type="Node2D" parent="Map"]
 
 [node name="get_in_tavern" type="Area2D" parent="Map/Sensors"]
@@ -132,33 +128,25 @@ shape = SubResource("RectangleShape2D_ky5vi")
 [node name="AttendPoint" type="Marker2D" parent="Map/Objects/Bar"]
 position = Vector2(25.3333, 20.3333)
 
-[node name="Table" type="StaticBody2D" parent="Map/Objects" groups=["Tables"]]
+[node name="table" type="StaticBody2D" parent="Map/Objects" groups=["Tables"]]
 position = Vector2(112, 131.333)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Objects/Table"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Objects/table"]
 position = Vector2(-0.166666, 0.166668)
 shape = SubResource("RectangleShape2D_76dn6")
 
-[node name="Sprite2D" type="Sprite2D" parent="Map/Objects/Table"]
+[node name="Sprite2D" type="Sprite2D" parent="Map/Objects/table"]
 texture = ExtResource("4_rqch6")
 
-[node name="ExitDoor" type="StaticBody2D" parent="Map/Objects" groups=["Doors"]]
-position = Vector2(200, 189)
-script = ExtResource("5_14yti")
+[node name="table2" type="StaticBody2D" parent="Map/Objects" groups=["Tables"]]
+position = Vector2(225.667, 132.667)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Objects/ExitDoor"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_jyn2x")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Objects/table2"]
+position = Vector2(-0.166666, 0.166668)
+shape = SubResource("RectangleShape2D_76dn6")
 
-[node name="Sprite2D" type="Sprite2D" parent="Map/Objects/ExitDoor"]
-position = Vector2(0, 0.5)
-texture = ExtResource("5_0v3hr")
-
-[node name="CollisionManager" type="Area2D" parent="Map/Objects/ExitDoor"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Objects/ExitDoor/CollisionManager"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_emt0t")
+[node name="Sprite2D" type="Sprite2D" parent="Map/Objects/table2"]
+texture = ExtResource("4_rqch6")
 
 [node name="Characters" type="Node2D" parent="Map"]
 scale = Vector2(5, 5)
@@ -474,7 +462,6 @@ position = Vector2(32, 45)
 script = ExtResource("5_v1nwa")
 
 [connection signal="body_entered" from="Map/Sensors/get_in_tavern" to="Map/Sensors/get_in_tavern" method="_on_body_entered"]
-[connection signal="body_entered" from="Map/Objects/ExitDoor/CollisionManager" to="Map/Objects/ExitDoor" method="_on_collision_manager_body_entered"]
 [connection signal="timeout" from="Map/Spawn/Timer" to="Map/Spawn" method="_on_timer_timeout"]
 [connection signal="area_entered" from="Hud/Drink_hud/scaler/Minigame_bar/Indicator/Collisor" to="Hud/Drink_hud/scaler/Minigame_bar/Indicator" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Hud/Drink_hud/scaler/Minigame_bar/Indicator/Collisor" to="Hud/Drink_hud/scaler/Minigame_bar/Indicator" method="_on_area_2d_area_exited"]
