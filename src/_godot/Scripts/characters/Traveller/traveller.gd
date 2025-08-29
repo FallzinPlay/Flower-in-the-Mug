@@ -18,8 +18,9 @@ enum Places {
 }
 var current_place: Places = Places.TAVERN
 
-# Drink
+# Nós
 var drink_ordered: Drink = null
+var current_seat: Marker2D = null
 
 # Pré carregados
 @onready var path_agent := $Navigator # A*
@@ -43,10 +44,11 @@ func _process(delta: float) -> void:
 					_move_to_bar()
 				# Se estiver servido ir para a mesa
 				elif is_served:
-					_move_to_table()
+					_move_to_seat()
 			# Se não quiser mais beber
 			else:
 				# Vai embora
+				_empty_seat()
 				_move_to_door()
 		
 		# Estado de movimento
@@ -140,21 +142,61 @@ func take_the_drink(drink: Drink) -> void:
 
 
 ############ Mesas ###########
+# Pega as mesas disponiveis
+func _get_free_tables(tables: Array) -> Array:
+	var _free_tables := []
+	for t in tables:
+		# Verifica se a mesa tem assentos livres
+		if not t.get_node("SeatManager").free_seats.is_empty():
+			_free_tables.append(t)
+	
+	return _free_tables
+
 # Escolhe uma mesa
 func _choose_table() -> StaticBody2D:
+	# Pega mesas com assentos disponíveis
 	var _tables = get_tree().get_nodes_in_group("Tables")
-	return _tables[randi_range(0, _tables.size() - 1)]
+	var _free_tables = _get_free_tables(_tables)
+
+	return _free_tables.pick_random()
+
+func _get_seat(table: StaticBody2D) -> Marker2D:
+	var _table_seat_manager: SeatManager = table.get_node("SeatManager")
+	return _table_seat_manager.get_free_seat_list().pick_random()
 
 # Vai até a mesa escolhida
-func _move_to_table() -> void:
-	var _table = _choose_table()
-	var _pos = _table.global_position + Vector2(50, 50)
+func _move_to_seat() -> void:
+	# Se não tiver um assento, escolher um
+	if not current_seat:
+		# se não houver mesas livres, ir embora
+		var _table = _choose_table()
+		if not _table:
+			wants_another_drink = false
+			is_served = false
+			drink_ordered = null
+			return
+			
+		var _seat = _get_seat(_table)
+		current_seat = _seat
+		
+	var _pos = current_seat.global_position
 	go_to(_pos)
 
 # Senta-se
 func _sit_down() -> void:
 	print("%s sentou" % name)
+	
+	# Define o assento como ocupado
+	var _seat_manager: SeatManager = current_seat.get_parent()
+	_seat_manager.occupy_seat(current_seat)
+	
 	current_state = States.SITTING
+
+func _empty_seat() -> void:
+	# Define o assento como desocupado
+	var _seat_manager: SeatManager = current_seat.get_parent()
+	_seat_manager.empty_seat(current_seat)
+	current_seat = null
 
 # Toma a bebida
 func _drink() -> void:
@@ -169,6 +211,7 @@ func _drink() -> void:
 
 
 ############ Partida ###########
+# Pega o nó da porta de saída
 func _find_the_door() -> StaticBody2D:
 	var _exit_door: StaticBody2D = null
 	var _doors := get_tree().get_nodes_in_group("Doors")
@@ -180,10 +223,12 @@ func _find_the_door() -> StaticBody2D:
 		print("%s não conseguiu achar a porta de saída. \nPorta de saída = %s" % [name, _exit_door])
 	return _exit_door
 
+# Vai até a porta
 func _move_to_door() -> void:
 	var pos = _find_the_door().global_position
 	go_to(pos)
 
+# Sai de cena
 func get_out() -> void:
 	# Se ainda quiser beber, retornar
 	if wants_another_drink:

@@ -80,3 +80,11 @@
     - Beber;
     - Escolher se quer beber mais ou ir embora.
     - OBS: A lógica está completa. Toda a base do código está pronta para ser expandida.
+
+## 29/08/25
+### Ciclo do Viajante na Taverna 🧑
+  - Lógica do comportamento do NPC na taverna:
+    - Escolhe uma mesa com assentos livres;
+    - Escolhe um assento livre;
+    - Permanece com o mesmo assento até ir embora.
+  - Lógica basica de assentos com posições pré ajustadas no editor.

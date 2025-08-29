@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://l4j80qyrwpsx"]
+
+[ext_resource type="Texture2D" uid="uid://b2rfnyhn03jov" path="res://Assets/Scenes/old_mammoth_tavern/Objects/Table.png" id="1_ubbk8"]
+[ext_resource type="Script" path="res://Scripts/Old_Mammoth_Tavern/Objects/Table/seats.gd" id="2_bc6nj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76dn6"]
+size = Vector2(16.3333, 32.8333)
+
+[node name="Table" type="StaticBody2D" groups=["Tables"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.166666, -14.5833)
+shape = SubResource("RectangleShape2D_76dn6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -17.5)
+texture = ExtResource("1_ubbk8")
+
+[node name="SeatManager" type="Node2D" parent="."]
+script = ExtResource("2_bc6nj")
+
+[node name="Seat_left1" type="Marker2D" parent="SeatManager"]
+position = Vector2(-14, -28)
+
+[node name="Seat_left2" type="Marker2D" parent="SeatManager"]
+position = Vector2(-14, -19)
+
+[node name="Seat_left3" type="Marker2D" parent="SeatManager"]
+position = Vector2(-14, -10)
+
+[node name="Seat_right1" type="Marker2D" parent="SeatManager"]
+position = Vector2(14, -28)
+
+[node name="Seat_right2" type="Marker2D" parent="SeatManager"]
+position = Vector2(14, -19)
+
+[node name="Seat_right3" type="Marker2D" parent="SeatManager"]
+position = Vector2(14, -10)

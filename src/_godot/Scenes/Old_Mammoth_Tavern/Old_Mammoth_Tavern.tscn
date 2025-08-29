@@ -1,11 +1,11 @@
-[gd_scene load_steps=40 format=4 uid="uid://d30ij4of3owpv"]
+[gd_scene load_steps=39 format=4 uid="uid://d30ij4of3owpv"]
 
 [ext_resource type="TileSet" uid="uid://bt3oy6lao7dvm" path="res://Assets/Tiles/base.tres" id="2_fvryo"]
 [ext_resource type="Script" path="res://Scripts/Sensors/get_in_tavern.gd" id="3_5ombd"]
 [ext_resource type="Texture2D" uid="uid://dw07nqo0ctcwo" path="res://Assets/Scenes/drink_making_hud/model/layers/cocktail_shaker.png" id="3_7aasw"]
 [ext_resource type="Script" path="res://Scripts/Drink_making_system/drink_hud.gd" id="3_ej8x7"]
+[ext_resource type="PackedScene" uid="uid://l4j80qyrwpsx" path="res://Scenes/Old_Mammoth_Tavern/Objects/table.tscn" id="4_3rx0j"]
 [ext_resource type="Texture2D" uid="uid://b48dxhpnjr7b4" path="res://Assets/Scenes/drink_making_hud/model/layers/slot.png" id="4_p4nao"]
-[ext_resource type="Texture2D" uid="uid://b2rfnyhn03jov" path="res://Assets/Scenes/old_mammoth_tavern/Objects/Table.png" id="4_rqch6"]
 [ext_resource type="Texture2D" uid="uid://crcyqbqwdv3pd" path="res://Assets/Scenes/old_mammoth_tavern/Objects/Door.png" id="5_0v3hr"]
 [ext_resource type="Texture2D" uid="uid://0xr55popc3hx" path="res://Assets/Scenes/drink_making_hud/model/layers/Minigame_bar/bar.png" id="5_8yjdi"]
 [ext_resource type="Script" path="res://Scripts/Old_Mammoth_Tavern/Objects/ExitDoor/exit_door.gd" id="5_14yti"]
@@ -38,9 +38,6 @@ size = Vector2(68, 11)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ky5vi"]
 size = Vector2(8, 29.6667)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_76dn6"]
-size = Vector2(16.3333, 38.3333)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyn2x"]
 size = Vector2(32, 4.66667)
 
@@ -48,9 +45,9 @@ size = Vector2(32, 4.66667)
 size = Vector2(32, 8.33334)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_sk8se"]
-vertices = PackedVector2Array(744.133, 200.977, 748.859, 555.961, 258.969, 554.031, 258.023, 200.008)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(248, 190, 754, 191, 759, 566, 249, 564)])
+vertices = PackedVector2Array(406, 489, 748.859, 555.961, 258.969, 554.031, 301, 489, 258.023, 200.008, 301, 346, 744.133, 200.977, 406, 346)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 1, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(248, 190, 754, 191, 759, 566, 249, 564), PackedVector2Array(311, 356, 311, 479, 396, 479, 396, 356)])
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fe3g"]
 atlas = ExtResource("3_7aasw")
@@ -132,15 +129,8 @@ shape = SubResource("RectangleShape2D_ky5vi")
 [node name="AttendPoint" type="Marker2D" parent="Map/Objects/Bar"]
 position = Vector2(25.3333, 20.3333)
 
-[node name="Table" type="StaticBody2D" parent="Map/Objects" groups=["Tables"]]
-position = Vector2(112, 131.333)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Objects/Table"]
-position = Vector2(-0.166666, 0.166668)
-shape = SubResource("RectangleShape2D_76dn6")
-
-[node name="Sprite2D" type="Sprite2D" parent="Map/Objects/Table"]
-texture = ExtResource("4_rqch6")
+[node name="Table" parent="Map/Objects" instance=ExtResource("4_3rx0j")]
+position = Vector2(117.667, 157)
 
 [node name="ExitDoor" type="StaticBody2D" parent="Map/Objects" groups=["Doors"]]
 position = Vector2(200, 189)

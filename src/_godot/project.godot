@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Flower in the Mug"
-run/main_scene="res://Scenes/base.tscn"
+run/main_scene="res://Scenes/Old_Mammoth_Tavern/Old_Mammoth_Tavern.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
